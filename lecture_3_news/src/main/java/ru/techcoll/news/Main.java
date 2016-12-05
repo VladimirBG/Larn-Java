@@ -10,7 +10,7 @@ public class Main {
 
     private static void init() throws Exception {
         // logging
-        PropertyConfigurator.configure(Main.class.getClassLoader().getResource("log4j.properties"));
+        PropertyConfigurator.configure(Main.class.getClassLoader().getResource("log4j.xml"));
 
         // velocity
         try (final InputStream stream = Main.class.getClassLoader().getResourceAsStream("velocity.properties")) {
@@ -27,6 +27,8 @@ public class Main {
         RssChannel channel = parser.retrieveFromUrl("https://news.yandex.ru/sport.rss");
 
         System.out.print(new RssFormatter().format(channel));
+
+        new HtmlFormatter().format(channel);
     }
 
 }

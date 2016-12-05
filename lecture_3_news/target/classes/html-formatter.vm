@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$channel.title</title>
+    <link rel="stylesheet" type="text/css" href="src/main/java/ru/techcoll/news/site/style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="top">$channel.description</div>
+            #foreach ($item in $channel.items)
+            <div class="item">
+                <a href="$item.link">
+                    <div class="tittle">$item.title</div>
+                    <div class="data">$item.pubDate</div>
+                    <p>   $item.description </p>
+                </a>
+            </div class="item">
+            #end
+    </div>
+</body>
+</html>

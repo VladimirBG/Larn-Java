@@ -1,0 +1,37 @@
+.wrapper {
+    text-align: center;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    margin: 0 auto;
+    max-width: 800px;
+    min-width: 800px;
+}
+
+.top {
+    font-size: large;
+    padding-top: 20px;
+}
+.item {
+    border: 1px green solid;
+    width: 790px;
+    padding: 5px;
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgb(66, 63, 92);
+    border-radius: 8px;
+}
+
+.tittle {
+    font-size: medium;
+}
+
+.data {
+    font-size: smaller;
+    font-style: italic;
+}
+
+a {
+    display: block;
+    color: black;
+    text-decoration: none;
+}
