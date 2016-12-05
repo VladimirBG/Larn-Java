@@ -23,7 +23,7 @@ import java.io.StringWriter;
             StringWriter writer = new StringWriter();
             Velocity.evaluate(context, writer, "", reader);
 
-            FileWriter fileWriter = new FileWriter("t.html");
+            FileWriter fileWriter = new FileWriter("src/main/java/ru/techcoll/news/site/t.html");
             fileWriter.write(writer.toString());
 
         }
