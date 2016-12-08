@@ -47,7 +47,7 @@ public class RssParser {
 
         List<Node> nodes = node.selectNodes("item");
         for (Node n : nodes)
-            channel.getItems().add(parseItem(n));
+            channel.getItemsForChange().add(parseItem(n));
 
         return channel;
     }

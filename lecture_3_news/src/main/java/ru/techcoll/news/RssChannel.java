@@ -1,6 +1,7 @@
 package ru.techcoll.news;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -97,8 +98,16 @@ public class RssChannel {
      * Items in this channel.
      */
     public List<RssItem> getItems() {
+        return Collections.unmodifiableList(items);
+    }
+
+    /**
+     * Get changes Items in this channel.
+     */
+    protected List<RssItem> getItemsForChange() {
         return items;
     }
+
 
     @Override
     public String toString() {
