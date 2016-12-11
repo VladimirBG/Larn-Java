@@ -37,7 +37,6 @@ public class XmlSerializer {
         return retrieveFromStream(getDocument(url), klass);
     }
 
-
     /**
      * Получение объекта из документа в файле.
      *
