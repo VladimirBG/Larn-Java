@@ -5,7 +5,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
-import ru.techcoll.news.rss.RssChannel;
 import ru.techcoll.news.rss.RssItem;
 
 import java.io.BufferedInputStream;
@@ -113,7 +112,7 @@ public class XmlSerializer {
         return instance;
     }
 
-    protected <T> T parse(Node root, Class<T> klass) throws SerializationException {
+    protected <T> T parse(Node root, Class<T> klass) throws SerializationException, InvocationTargetException {
         // проверяем, есть ли у класса аннотация сериализации
         if (!klass.isAnnotationPresent(SerialNode.class))
             throw new SerializationException("Unknown serial class " + klass.getName());
@@ -131,15 +130,35 @@ public class XmlSerializer {
 
             // todo: этот код так же надо обобщить
             List<Node> nodes = node.selectNodes("item");
-            for (Node n : nodes)
-                ((RssChannel)result).addToItems(readProperties(n, new RssItem()));
 
-            return result;
+
+            return parseItems(nodes, result);
         } catch (InstantiationException  e) {
             throw new SerializationException("Unable to create instance " + klass.getName(), e);
         } catch (IllegalAccessException e) {
             throw new SerializationException("Unable to create instance " + klass.getName(), e);
         }
+    }
+
+    protected <T> T parseItems(List<Node> nodes, T instance) throws SerializationException, InvocationTargetException, IllegalAccessException {
+        Class<?> cl = instance.getClass();
+        boolean isAnnotationPresentFlag = false;
+        for (Method method : cl.getMethods()) {
+            if (isSerialAddToItemsSetter(method)) {
+                isAnnotationPresentFlag = true;
+                for (Node n : nodes)
+                    method.invoke(instance, readProperties(n, new RssItem()));
+            }
+        }
+        if (!isAnnotationPresentFlag)
+            throw new SerializationException("Class don't have method addToItems " + instance.getClass().getName());
+
+        return instance;
+    }
+
+    protected boolean isSerialAddToItemsSetter(Method method) {
+        return method.isAnnotationPresent(SerialAddToItems.class)
+                && method.getName().startsWith("add");
     }
 
 }

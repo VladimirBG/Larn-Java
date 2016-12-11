@@ -1,5 +1,6 @@
 package ru.techcoll.news.rss;
 
+import ru.techcoll.news.serial.SerialAddToItems;
 import ru.techcoll.news.serial.SerialNode;
 
 import java.util.ArrayList;
@@ -109,6 +110,7 @@ public class RssChannel {
         return Collections.unmodifiableList(items);
     }
 
+    @SerialAddToItems
     public void addToItems(RssItem rssItem) {
         items.add(rssItem);
     }
