@@ -132,7 +132,7 @@ public class XmlSerializer {
             // todo: этот код так же надо обобщить
             List<Node> nodes = node.selectNodes("item");
             for (Node n : nodes)
-                ((RssChannel)result).getItems().add(readProperties(n, new RssItem()));
+                ((RssChannel)result).addToItems(readProperties(n, new RssItem()));
 
             return result;
         } catch (InstantiationException  e) {
