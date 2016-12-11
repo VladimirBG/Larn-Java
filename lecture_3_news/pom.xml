@@ -50,8 +50,11 @@
                 <version>2.10.4</version>
                 <executions>
                     <execution>
+                        <id>JDoc</id>
                         <phase>site</phase>
-
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
