@@ -5,7 +5,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
-import ru.techcoll.news.rss.RssItem;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -28,12 +27,13 @@ public class XmlSerializer {
      *
      * @param url URL документа.
      * @param klass Класс корневого объекта.
+     * @param Item Класс - Item в коллекции items класса klass
      * @param <T> Тип корневого объекта.
      * @return Экземпляр десереализованного объекта.
      * @throws Exception
      */
-    public <T> T retrieveFromUrl(String url, Class<T> klass) throws Exception {
-        return retrieveFromStream(getDocument(url), klass);
+    public <T> T retrieveFromUrl(String url, Class<T> klass, Object Item) throws Exception {
+        return retrieveFromStream(getDocument(url), klass, Item);
     }
 
     /**
@@ -41,13 +41,14 @@ public class XmlSerializer {
      *
      * @param name Имя файла документа.
      * @param klass Класс корневого объекта.
+     * @param Item Класс - Item в коллекции items класса klass
      * @param <T> Тип корневого объекта.
      * @return Экземпляр десереализованного объекта.
      * @throws Exception
      */
-    public <T> T retrieveFromFile(String name, Class<T> klass) throws Exception {
+    public <T> T retrieveFromFile(String name, Class<T> klass, Object Item) throws Exception {
         InputStream input = new BufferedInputStream(new FileInputStream(name));
-        return retrieveFromStream(input, klass);
+        return retrieveFromStream(input, klass, Item);
     }
 
     /**
@@ -55,17 +56,18 @@ public class XmlSerializer {
      *
      * @param stream Пток ввода, содержащий документ.
      * @param klass Класс корневого объекта.
+     * @param Item Класс - Item в коллекции items класса klass
      * @param <T> Тип корневого объекта.
      * @return Экземпляр десереализованного объекта.
      * @throws Exception
      */
-    public <T> T retrieveFromStream(InputStream stream, Class<T> klass) throws Exception {
+    public <T> T retrieveFromStream(InputStream stream, Class<T> klass, Object Item) throws Exception {
         DocumentFactory factory = new DocumentFactory();
         SAXReader reader = new SAXReader();
         reader.setDocumentFactory(factory);
 
         Document document = reader.read(stream);
-        return parse(document, klass);
+        return parse(document, klass, Item);
     }
 
     public InputStream getDocument(String url) throws Exception {
@@ -112,7 +114,7 @@ public class XmlSerializer {
         return instance;
     }
 
-    protected <T> T parse(Node root, Class<T> klass) throws SerializationException, InvocationTargetException {
+    protected <T> T parse(Node root, Class<T> klass, Object Item) throws SerializationException, InvocationTargetException {
         // проверяем, есть ли у класса аннотация сериализации
         if (!klass.isAnnotationPresent(SerialNode.class))
             throw new SerializationException("Unknown serial class " + klass.getName());
@@ -128,11 +130,7 @@ public class XmlSerializer {
         try {
             T result = readProperties(node, klass.newInstance());
 
-            // todo: этот код так же надо обобщить
-            List<Node> nodes = node.selectNodes("item");
-
-
-            return parseItems(nodes, result);
+            return parseItems(node, result, Item);
         } catch (InstantiationException  e) {
             throw new SerializationException("Unable to create instance " + klass.getName(), e);
         } catch (IllegalAccessException e) {
@@ -140,14 +138,16 @@ public class XmlSerializer {
         }
     }
 
-    protected <T> T parseItems(List<Node> nodes, T instance) throws SerializationException, InvocationTargetException, IllegalAccessException {
+    protected <T> T parseItems(Node node, T instance, Object Item) throws SerializationException, InvocationTargetException, IllegalAccessException {
+        List<Node> nodes = node.selectNodes("item");
+
         Class<?> cl = instance.getClass();
         boolean isAnnotationPresentFlag = false;
         for (Method method : cl.getMethods()) {
             if (isSerialAddToItemsSetter(method)) {
                 isAnnotationPresentFlag = true;
                 for (Node n : nodes)
-                    method.invoke(instance, readProperties(n, new RssItem()));
+                    method.invoke(instance, readProperties(n, Item));
             }
         }
         if (!isAnnotationPresentFlag)
@@ -160,5 +160,6 @@ public class XmlSerializer {
         return method.isAnnotationPresent(SerialAddToItems.class)
                 && method.getName().startsWith("add");
     }
+
 
 }
