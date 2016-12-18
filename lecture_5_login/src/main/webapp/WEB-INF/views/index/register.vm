@@ -1,0 +1,46 @@
+<h1>Register</h1>
+<div class="form">
+    <form method="POST">
+
+        #springBind( "form.name" )
+        <div class="row #if($status.errors.hasErrors())error#end">
+            <label for="name">Real Name:</label>
+            #springFormInput( "form.name" "" )
+            <div class="errors">#springShowErrors( "<br>" "error" )</div>
+            <div>$error</div>
+        </div>
+
+        #springBind( "form.nickname" )
+        <div class="row #if($status.errors.hasErrors())error#end">
+            <label for="nicknameInput">Nickname:</label>
+            #springFormInput( "form.nickname" "" )
+            <div class="errors">#springShowErrors( "<br>" "error" )</div>
+        </div>
+
+        #springBind( "form.email" )
+        <div class="row #if($status.errors.hasErrors())error#end">
+            <label for="emailInput">E-mail:</label>
+            #springFormInput( "form.email" "" )
+            <div class="errors">#springShowErrors( "<br>" "error" )</div>
+        </div>
+
+        #springBind( "form.password" )
+        <div class="row #if($status.errors.hasErrors())error#end">
+            <label for="passwordInput">Password:</label>
+            #springFormPasswordInput( "form.password" "" )
+            <div class="errors">#springShowErrors( "<br>" "error" )</div>
+        </div>
+
+        #springBind( "form.passwordConfirmation" )
+        <div class="row #if($status.errors.hasErrors())error#end">
+            <label for="passwordConfirmationInput">Confirm password:</label>
+            #springFormPasswordInput( "form.passwordConfirmation" "" )
+            <div class="errors">#springShowErrors( "<br>" "error" )</div>
+        </div>
+
+        <div class="row footer">
+            <input type="submit" id="registerButton" name="register" value="Register">
+        </div>
+
+    </form>
+</div>

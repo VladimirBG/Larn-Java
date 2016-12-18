@@ -1,0 +1,74 @@
+.content-wrapper {
+    text-align: center;
+    font-family: Geneva, Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+}
+
+.form {
+    border: 1px solid lightgray;
+    border-radius: 8px;
+    padding: 1.2em 2em;
+    display: inline-block;
+    text-align: left;
+}
+
+.form .row {
+    padding: 12px 0;
+}
+
+.form label {
+    width: 10em;
+    display: inline-block;
+}
+
+.form span.required {
+    color: red;
+}
+
+.form input[type="radio"] + label {
+    width: auto;
+}
+.form input[type="checkbox"] + label {
+    width: auto;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+    font-size: 16pt;
+    width: 14em;
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 0.2em;
+}
+
+.form input[type="submit"],
+.form input[type="reset"] {
+    font-size: 14pt;
+    padding: 0.3em 1em;
+    color: white;
+    background-color: #2576ff;
+    border: 1px solid gray;
+    border-radius: 3px;
+    transition: all 0.5s ease;
+}
+
+.form input[type="submit"]:hover,
+.form input[type="reset"]:hover {
+    background-color: #49abff;
+    transition: all 0.5s ease;
+}
+
+.form .footer {
+    text-align: center;
+}
+
+.form .error input[type="text"],
+.form .error input[type="password"] {
+    border-color: red;
+}
+
+.form .errors {
+    text-align: right;
+    color: red;
+    font-size: 10pt;
+}

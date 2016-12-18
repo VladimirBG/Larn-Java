@@ -1,0 +1,30 @@
+<h1>Login</h1>
+<div class="form">
+    <form name="f" action="/login" method="POST">
+
+        <div class="row #if($error)error#end">
+            <label for="emailInput">E-mail:</label>
+            <input type="text" id="emailInput" name="username" value="">
+            #if($error)
+            <div class="errors"><span class="error">Invalid username or password</span></div>
+            #end
+        </div>
+
+        <div class="row #if($error)error#end">
+            <label for="passwordInput">Password:</label>
+            <input type="password" id="passwordInput" name="password">
+        </div>
+
+        <div class="row">
+            <input type="checkbox" id="rememberMeCheck" name="remember-me">
+            <label for="rememberMeCheck">Remember Me</label>
+        </div>
+
+        <div class="row footer">
+            <input type="submit" id="loginButton" name="login" value="Login">
+        </div>
+
+        <!--input name="_csrf" type="hidden" value="34e4f3a3-4829-4cc8-a3e5-afadb195b7d6" -->
+
+    </form>
+</div>
