@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.AssertTrue;
+
 public class PlayerRegisterForm {
 
     @NotBlank
@@ -26,6 +28,11 @@ public class PlayerRegisterForm {
     @NotBlank
     @Length(min = 6, max = 20)
     private String passwordConfirmation;
+
+    @AssertTrue(message="passVerify field should be equal than pass field")
+    private boolean isValid() {
+        return this.password.equals(this.passwordConfirmation);
+    }
 
     public String getName() {
         return name;
