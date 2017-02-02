@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="setterInjection" class="Setter_Ijection_Test.SetterInjection"
+          p:name="Vasya"
+          p:age="25"
+          p:aFloat="35.64">
+        <property name="arrayA">
+            <util:set id="newList" value-type="java.lang.String">
+                <value>foo</value>
+                <value>bar</value>
+            </util:set>
+        </property>
+
+    </bean>
+
+</beans>
