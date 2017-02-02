@@ -12,6 +12,7 @@ public class SetterInjection {
     private int age;
     private float aFloat;
     private Set<String> arrayA;
+    private String spELTesting= "SpEL is work";
 
     public void setName(String name) {
         this.name = name;
@@ -44,5 +45,13 @@ public class SetterInjection {
 
     public void setArrayA(Set<String> arrayA) {
         this.arrayA = arrayA;
+    }
+
+    public void setSpELTesting(String SpELTesting) {
+        spELTesting = SpELTesting;
+    }
+
+    public String getSpELTesting() {
+        return spELTesting;
     }
 }

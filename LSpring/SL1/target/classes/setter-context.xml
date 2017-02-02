@@ -5,8 +5,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <bean id="spelInject" class="Setter_Ijection_Test.SpelInject"/>
+    
     <bean id="setterInjection" class="Setter_Ijection_Test.SetterInjection"
-          p:name="Vasya"
+          p:name="#{spelInject.name}"
           p:age="25"
           p:aFloat="35.64">
         <property name="arrayA">
