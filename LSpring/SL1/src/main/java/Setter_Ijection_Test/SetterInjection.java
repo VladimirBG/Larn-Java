@@ -40,7 +40,8 @@ public class SetterInjection {
         for (String s : arrayA) {
             v += " " + s;
         }
-        return name + " " + v;
+        String result = "Name: " +  name + "\nList: " + v + "\nAge:  " + age;
+        return result;
     }
 
     public void setArrayA(Set<String> arrayA) {

@@ -6,10 +6,10 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <bean id="spelInject" class="Setter_Ijection_Test.SpelInject"/>
-    
+
     <bean id="setterInjection" class="Setter_Ijection_Test.SetterInjection"
           p:name="#{spelInject.name}"
-          p:age="25"
+          p:age="#{spelInject.age + 5}"
           p:aFloat="35.64">
         <property name="arrayA">
             <util:set id="newList" value-type="java.lang.String">
