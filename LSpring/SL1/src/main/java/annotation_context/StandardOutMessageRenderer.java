@@ -1,5 +1,6 @@
 package annotation_context;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +18,7 @@ public class StandardOutMessageRenderer implements MessageRenderer {
         }
         System.out.println(messageProvider.getMessage());
     }
-
+    @Autowired
     public void setMessageProvider(MessageProvider provider) {
         this.messageProvider = provider;
     }
