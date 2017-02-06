@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="LookupMethodInjction" />
+        <module name="MethodInjction" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="LookupMethodInjction" target="1.6" />
+      <module name="MethodInjction" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

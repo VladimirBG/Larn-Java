@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="messageReplacer" class="Method_Replacement.MessageReplacer"/>
+
+    <bean id="repTarget" class="Method_Replacement.ReplacementTarget">
+        <replaced-method name="outputMessage" replacer="messageReplacer">
+            <arg-type>String</arg-type>
+        </replaced-method>
+    </bean>
+
+    <bean id="standartTarget" class="Method_Replacement.ReplacementTarget"/>
+
+</beans>
